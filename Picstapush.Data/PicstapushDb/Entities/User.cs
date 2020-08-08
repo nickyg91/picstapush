@@ -15,7 +15,7 @@ namespace Picstapush.Data.PicstapushDb.Entities
         [StringLength(64), Column("username")]
         public string Username { get; set; }
         [Column("password")]
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
     }

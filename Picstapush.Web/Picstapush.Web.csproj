@@ -17,6 +17,7 @@
     <FileVersion>2.4.1.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.6" />
     <PackageReference Include="VueCliMiddleware" Version="3.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="3.1.4" />
@@ -37,9 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Picstapush.Data\Picstapush.Data.csproj" />
     <ProjectReference Include="..\Picstapush.Dto\Picstapush.Dto.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Picstapush.Utilities\Picstapush.Utilities.csproj" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <Exec Command="node --version" ContinueOnError="true">

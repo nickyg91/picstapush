@@ -5,7 +5,9 @@ namespace Picstapush.Data.PicstapushDb.Repositories.Interfaces
 {
     public interface IUserRepository
     {
-        User AuthenticateUser(string username, byte[] password);
+        User AuthenticateUser(string username, string password);
         Task<int> InsertUser(User user);
+        Task<User> GetUserById(int id);
+        Task<User> FindUserByUsername(string username);
     }
 }

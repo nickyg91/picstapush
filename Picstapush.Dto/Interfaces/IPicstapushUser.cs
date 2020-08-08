@@ -7,7 +7,7 @@ namespace Picstapush.Dto.Interfaces
         int Id { get; }
         string Email { get; }
         string Username { get; }
-        byte[] Password { get; }
+        string Password { get; }
         DateTime DateCreated { get; }
     }
 }

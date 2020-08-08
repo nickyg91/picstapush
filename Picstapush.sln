@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picstapush.Web", "Picstapush.Web\Picstapush.Web.csproj", "{3356D327-0CD6-4EFF-915A-B29439C22766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picstapush.Web", "Picstapush.Web\Picstapush.Web.csproj", "{3356D327-0CD6-4EFF-915A-B29439C22766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picstapush.Data", "Picstapush.Data\Picstapush.Data.csproj", "{1B451391-8977-4DA5-9603-55341F53A710}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picstapush.Data", "Picstapush.Data\Picstapush.Data.csproj", "{1B451391-8977-4DA5-9603-55341F53A710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picstapush.Dto", "Picstapush.Dto\Picstapush.Dto.csproj", "{9EA44DBB-A1BC-4367-8853-BA07BB292A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Picstapush.Dto", "Picstapush.Dto\Picstapush.Dto.csproj", "{9EA44DBB-A1BC-4367-8853-BA07BB292A5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Picstapush.Utilities", "Picstapush.Utilities\Picstapush.Utilities.csproj", "{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3356D327-0CD6-4EFF-915A-B29439C22766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +57,23 @@ Global
 		{9EA44DBB-A1BC-4367-8853-BA07BB292A5E}.Release|x64.Build.0 = Release|Any CPU
 		{9EA44DBB-A1BC-4367-8853-BA07BB292A5E}.Release|x86.ActiveCfg = Release|Any CPU
 		{9EA44DBB-A1BC-4367-8853-BA07BB292A5E}.Release|x86.Build.0 = Release|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Debug|x64.Build.0 = Debug|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Debug|x86.Build.0 = Debug|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Release|x64.ActiveCfg = Release|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Release|x64.Build.0 = Release|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Release|x86.ActiveCfg = Release|Any CPU
+		{3ABAD031-2E70-41FC-99E7-2B7DEE505F3E}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2E96E62A-27BC-4744-BE8B-77707CC70337}
 	EndGlobalSection
 EndGlobal
