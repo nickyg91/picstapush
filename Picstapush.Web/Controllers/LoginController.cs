@@ -1,9 +1,6 @@
 ﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Picstapush.Data.PicstapushDb.Entities;
 using Picstapush.Data.PicstapushDb.Repositories.Interfaces;
 using Picstapush.Dto.Dtos;
@@ -11,6 +8,7 @@ using Picstapush.Dto.Interfaces;
 using Picstapush.Utilities.AuthenticationHelpers;
 using Picstapush.Utilities.MappingHelpers;
 using Picstapush.Web.Configurations;
+using Picstapush.Web.Helpers;
 using Picstapush.Web.Models;
 using User = Picstapush.Data.PicstapushDb.Entities.User;
 
@@ -48,8 +46,20 @@ namespace Picstapush.Web.Controllers
             }
 
             //generate a token
-            var token = GenerateJwt(user);
+            var token = TokenCreator.CreateToken(user, _jwtOptions);
+
+            var tokenEntity = ObjectMapper.Map<TokenDto, Token, IToken>(token);
+            tokenEntity.UserId = user.Id;
+            await _tokenRepository.InsertToken(tokenEntity);
+
             return Ok(token);
+        }
+
+        [HttpGet("logout/{userId:int}")]
+        public async Task<IActionResult> Logout(int userId)
+        {
+            await _tokenRepository.RemoveTokensByUser(userId);
+            return Ok();
         }
 
         [HttpPost("forgotpassword")]
@@ -92,28 +102,6 @@ namespace Picstapush.Web.Controllers
             {
                 return StatusCode(500, ex);
             }
-        }
-
-        private TokenDto GenerateJwt(IPicstapushUser user)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Signature));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(_jwtOptions.Issuer, _jwtOptions.Audience, signingCredentials: credentials,
-                expires: DateTime.Now.AddMinutes(_jwtOptions.ExpiresIn));
-            
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            var tokenModel = new TokenDto
-            {
-                ExpiresAt = token.ValidTo,
-                TokenString = tokenString,
-                RefreshToken = Guid.NewGuid().ToString("N"),
-                RefreshTokenExpiresAt = DateTime.Now.AddMinutes(31)
-            };
-
-            var tokenEntity = ObjectMapper.Map<TokenDto, Token, IToken>(tokenModel);
-            tokenEntity.UserId = user.Id;
-            _tokenRepository.InsertToken(tokenEntity);
-            return tokenModel;
         }
     }
 }
