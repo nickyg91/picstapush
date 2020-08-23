@@ -47,9 +47,10 @@ namespace Picstapush.Web.Controllers
 
             //generate a token
             var token = TokenCreator.CreateToken(user, _jwtOptions);
-
             var tokenEntity = ObjectMapper.Map<TokenDto, Token, IToken>(token);
             tokenEntity.UserId = user.Id;
+            token.Username = user.Username;
+            token.Email = user.Email;
             await _tokenRepository.InsertToken(tokenEntity);
 
             return Ok(token);
@@ -80,6 +81,11 @@ namespace Picstapush.Web.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest("Invalid payload detected.");
+            }
+
+            if (_userRepository.CheckIfUserExistsForEmailOrUsername(model.Email, model.Username))
+            {
+                return BadRequest(new { message = "Unable to create account with this email or username. The email or username is already used." });
             }
 
             var hashedPassword = PasswordHelper.HashPassword(model.Password);

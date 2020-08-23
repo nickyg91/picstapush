@@ -9,5 +9,6 @@ namespace Picstapush.Data.PicstapushDb.Repositories.Interfaces
         Task<int> InsertUser(User user);
         Task<User> GetUserById(int id);
         Task<User> FindUserByUsername(string username);
+        bool CheckIfUserExistsForEmailOrUsername(string email, string username);
     }
 }

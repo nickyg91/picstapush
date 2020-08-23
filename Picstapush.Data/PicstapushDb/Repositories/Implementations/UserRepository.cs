@@ -34,5 +34,11 @@ namespace Picstapush.Data.PicstapushDb.Repositories.Implementations
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
         }
+
+        public bool CheckIfUserExistsForEmailOrUsername(string email, string username)
+        {
+            var foundUsers = _context.Users.Any(x => x.Email.ToLower() == email.ToLower() || x.Username.ToLower() == username.ToLower());
+            return foundUsers;
+        }
     }
 }

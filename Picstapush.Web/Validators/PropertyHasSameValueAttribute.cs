@@ -23,7 +23,11 @@ namespace Picstapush.Web.Validators
             }
 
             var comparisonValue = property.GetValue(validationContext.ObjectInstance);
-            if (comparisonValue == value)
+            if (comparisonValue?.GetType() != typeof(string))
+            {
+                throw new ArgumentException("Property must be of type string.");
+            }
+            if ((string)comparisonValue == (string)value)
             {
                 return ValidationResult.Success;
             }

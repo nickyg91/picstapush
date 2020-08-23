@@ -13,5 +13,7 @@ namespace Picstapush.Dto.Dtos
         public string RefreshToken { get; set; }
         public DateTime ExpiresAt { get; set; }
         public DateTime RefreshTokenExpiresAt { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
     }
 }

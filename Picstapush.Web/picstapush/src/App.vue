@@ -3,21 +3,19 @@
     <div v-if="!isUserLoggedIn">
       <div>
         <img
-          class="login-background"
-          src="https://picsum.photos/seed/picsum/1920/1080"
+          class="login-background glass"
+          src="https://picsum.photos/1920/1080"
           alt="random login picture"
         />
-        <login></login>
+
+        <router-view />
       </div>
     </div>
     <div v-else>
-      <!-- router here -->
+      <transition name="fade">
+        <router-view />
+      </transition>
     </div>
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />-->
   </div>
 </template>
 <style lang="scss">
@@ -34,19 +32,12 @@ html {
 }
 
 .glass:after {
-  filter: blur(10px);
-  width: 100%;
-  height: 100%;
-  background: inherit;
-  position: absolute;
+  filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 .glass {
-  width: 100%;
-  height: 100%;
-  filter: blur(10px);
-  position: relative;
-  background: inherit;
-  overflow: hidden;
+  filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 @import "~bulma/sass/utilities/_all";
@@ -185,14 +176,11 @@ import Login from "@/components/Login/Login.vue";
   }
 })
 export default class App extends Vue {
-  // public isMenuOpen = false;
-  // public isOpen() {
-  //   this.isMenuOpen = !this.isMenuOpen;
-  // }
   public isUserLoggedIn = false;
-
   mounted() {
-    if (this.$store.state.User) {
+    if (!this.$store.state.User) {
+      this.$router.push("login");
+    } else {
       this.isUserLoggedIn = true;
     }
   }

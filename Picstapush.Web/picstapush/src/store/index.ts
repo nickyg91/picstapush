@@ -1,21 +1,21 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import User from '@/models/user-model';
+import Vue from 'vue';
+import Vuex from 'vuex';
+import Token from '@/models/token-model';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    User: null
+    Token: new Token()
   },
   mutations: {
-    setUser: (state: any, user: User) => {
-      state.User = user;
+    setUser: (state: any, token: Token) => {
+      state.Token = token;
     }
   },
   getters: {
-    getUser: state => {
-      return state.User;
+    getToken: state => {
+      return state.Token;
     }
   },
   actions: {},
