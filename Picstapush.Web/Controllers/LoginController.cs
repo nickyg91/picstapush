@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Picstapush.Data.PicstapushDb.Entities;
 using Picstapush.Data.PicstapushDb.Repositories.Interfaces;
+using Picstapush.Dto.Dtos;
+using Picstapush.Dto.Interfaces;
 using Picstapush.Utilities.AuthenticationHelpers;
+using Picstapush.Utilities.MappingHelpers;
 using Picstapush.Web.Configurations;
 using Picstapush.Web.Models;
+using User = Picstapush.Data.PicstapushDb.Entities.User;
 
 namespace Picstapush.Web.Controllers
 {
@@ -18,10 +22,12 @@ namespace Picstapush.Web.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly JwtConfigurationOptions _jwtOptions;
-        public LoginController(IUserRepository userRepository, JwtConfigurationOptions jwtOptions)
+        private readonly ITokenRepository _tokenRepository;
+        public LoginController(IUserRepository userRepository, JwtConfigurationOptions jwtOptions, ITokenRepository tokenRepository)
         {
             _userRepository = userRepository;
             _jwtOptions = jwtOptions;
+            _tokenRepository = tokenRepository;
         }
 
         [HttpPost("submit")]
@@ -46,7 +52,7 @@ namespace Picstapush.Web.Controllers
             return Ok(token);
         }
 
-        [HttpPost("forgot")]
+        [HttpPost("forgotpassword")]
         public async Task<IActionResult> ForgotPassword()
         {
             return Ok();
@@ -58,7 +64,37 @@ namespace Picstapush.Web.Controllers
             return Ok();
         }
 
-        private TokenModel GenerateJwt(User user)
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateAccount(CreateUserModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid payload detected.");
+            }
+
+            var hashedPassword = PasswordHelper.HashPassword(model.Password);
+
+            var user = new User
+            {
+                DateCreated = DateTime.Now,
+                Email = model.Email,
+                Password = hashedPassword,
+                Username = model.Username
+            };
+
+            try
+            {
+                var userId = await _userRepository.InsertUser(user);
+                var insertedUser = await _userRepository.GetUserById(userId);
+                return Ok(ObjectMapper.Map<User, UserDto, IPicstapushUser>(insertedUser));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        private TokenDto GenerateJwt(IPicstapushUser user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Signature));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
@@ -66,12 +102,17 @@ namespace Picstapush.Web.Controllers
                 expires: DateTime.Now.AddMinutes(_jwtOptions.ExpiresIn));
             
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            var tokenModel = new TokenModel
+            var tokenModel = new TokenDto
             {
                 ExpiresAt = token.ValidTo,
-                Token = tokenString,
-                RefreshToken = Guid.NewGuid().ToString("N")
+                TokenString = tokenString,
+                RefreshToken = Guid.NewGuid().ToString("N"),
+                RefreshTokenExpiresAt = DateTime.Now.AddMinutes(31)
             };
+
+            var tokenEntity = ObjectMapper.Map<TokenDto, Token, IToken>(tokenModel);
+            tokenEntity.UserId = user.Id;
+            _tokenRepository.InsertToken(tokenEntity);
             return tokenModel;
         }
     }

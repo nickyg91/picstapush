@@ -9,5 +9,6 @@ namespace Picstapush.Data.PicstapushDb
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<Token> Tokens { get; set; }
     }
 }

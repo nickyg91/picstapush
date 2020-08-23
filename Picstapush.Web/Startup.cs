@@ -42,6 +42,10 @@ namespace Picstapush.Web
                     optionsBuilder.MigrationsAssembly("Picstapush.Web");
                 });
             });
+
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ITokenRepository, TokenRepository>();
+
             // In production, the Vue files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

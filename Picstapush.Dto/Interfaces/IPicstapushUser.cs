@@ -9,5 +9,6 @@ namespace Picstapush.Dto.Interfaces
         string Username { get; }
         string Password { get; }
         DateTime DateCreated { get; }
+        bool ForcePasswordChange { get; }
     }
 }

@@ -18,5 +18,7 @@ namespace Picstapush.Data.PicstapushDb.Entities
         public string Password { get; set; }
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
+        [Column("force_password_change")]
+        public bool ForcePasswordChange { get; set; }
     }
 }

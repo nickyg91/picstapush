@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using Picstapush.Dto.Interfaces;
 
 namespace Picstapush.Data.PicstapushDb.Entities
@@ -20,5 +18,7 @@ namespace Picstapush.Data.PicstapushDb.Entities
         public string RefreshToken { get; set; }
         [Column("expires_at")]
         public DateTime ExpiresAt { get; set; }
+        [Column("refresh_token_expires_at")]
+        public DateTime RefreshTokenExpiresAt { get; set; }
     }
 }

@@ -21,11 +21,11 @@ namespace Picstapush.Web.Controllers
         }
 
         [HttpPost("signup")]
-        public async Task<IActionResult> SignUp(Dtos.Dtos.User user)
+        public async Task<IActionResult> SignUp(Dtos.Dtos.UserDto user)
         {
             var hashedPassword = PasswordHelper.HashPassword(user.Password);
             user.Password = hashedPassword;
-            var dbUser = ObjectMapper.Map<Dtos.Dtos.User, Db.User, Dtos.Interfaces.IPicstapushUser>(user);
+            var dbUser = ObjectMapper.Map<Dtos.Dtos.UserDto, Db.User, Dtos.Interfaces.IPicstapushUser>(user);
             dbUser.DateCreated = DateTime.Now;
             var insertedUser = await _userRepository.InsertUser(dbUser);
             return Ok(insertedUser);

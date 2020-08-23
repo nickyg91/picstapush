@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Picstapush.Data.PicstapushDb;
@@ -9,9 +10,10 @@ using Picstapush.Data.PicstapushDb;
 namespace Picstapush.Web.Migrations
 {
     [DbContext(typeof(PicstapushDbContext))]
-    partial class PicstapushDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200823172510_AddRefreshTokenColumn")]
+    partial class AddRefreshTokenColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,10 +70,6 @@ namespace Picstapush.Web.Migrations
                         .HasColumnName("email")
                         .HasColumnType("character varying(128)")
                         .HasMaxLength(128);
-
-                    b.Property<bool>("ForcePasswordChange")
-                        .HasColumnName("force_password_change")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Password")
                         .HasColumnName("password")

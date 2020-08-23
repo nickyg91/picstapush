@@ -11,5 +11,6 @@ namespace Picstapush.Dto.Interfaces
         string TokenString { get; }
         string RefreshToken { get; }
         DateTime ExpiresAt { get; }
+        DateTime RefreshTokenExpiresAt { get; }
     }
 }
