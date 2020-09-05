@@ -1,6 +1,6 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import Token from '@/models/token-model';
+import Vue from "vue";
+import Vuex from "vuex";
+import Token from "@/models/token-model";
 
 Vue.use(Vuex);
 
@@ -9,6 +9,7 @@ export default new Vuex.Store({
     Token: new Token()
   },
   mutations: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setUser: (state: any, token: Token) => {
       state.Token = token;
     }
